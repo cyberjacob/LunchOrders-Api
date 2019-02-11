@@ -5,8 +5,8 @@ import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"log"
-	"lunchOrdersApi/api"
-	"lunchOrdersApi/models"
+	"github.com/cyberjacob/LunchOrders-Api/api"
+	"github.com/cyberjacob/LunchOrders-Api/models"
 )
 
 var Db *gorm.DB

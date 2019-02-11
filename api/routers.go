@@ -12,8 +12,8 @@ package api
 import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"lunchOrdersApi/api/v1/Order"
-	"lunchOrdersApi/api/v1/Session"
+	"github.com/cyberjacob/LunchOrders-Api/api/v1/order"
+	"github.com/cyberjacob/LunchOrders-Api/api/v1/session"
 	"net/http"
 )
 
@@ -39,8 +39,8 @@ func NewRouter() *gin.Engine {
 	v1Group := router.Group("api/v1")
 	{
 		v1Group.StaticFile("/swagger.yml", "api/v1/swagger.yml")
-		Order.SetupOrderRoutes(v1Group.Group("/order"))
-		Session.SetupSessionRoutes(v1Group.Group("session"))
+		order.SetupOrderRoutes(v1Group.Group("/order"))
+		session.SetupSessionRoutes(v1Group.Group("session"))
 	}
 
 	return router
