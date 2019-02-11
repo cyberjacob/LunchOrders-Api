@@ -1,0 +1,298 @@
+---
+swagger: "2.0"
+info:
+  description: "This API allows lunch ordering."
+  version: "1.0.0"
+  title: "Lunch Orders"
+  license:
+    name: "MIT"
+    url: "https://spdx.org/licenses/MIT.html"
+basePath: "/api/v1"
+tags:
+  - name: "order"
+    description: "Lunch Order"
+  - name: "session"
+    description: "Sessions are groups of orders being done by a user"
+schemes:
+  - "http"
+paths:
+  /order:
+    get:
+      tags:
+        - "order"
+      summary: "Find all orders"
+      operationId: "getOrders"
+      produces:
+        - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "search results matching criteria"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Order"
+        400:
+          description: "bad input parameter"
+    post:
+      tags:
+        - "order"
+      summary: "Create a new order"
+      operationId: "addOrder"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "Order"
+          description: "Order item to add"
+          required: false
+          schema:
+            $ref: "#/definitions/Order"
+          x-exportParamName: "Order"
+      responses:
+        201:
+          description: "item created"
+        400:
+          description: "invalid input, object invalid"
+        409:
+          description: "an existing item already exists"
+  /order/{orderId}:
+    get:
+      tags:
+        - "order"
+      summary: "Find order by ID"
+      description: "Returns a single order"
+      operationId: "getOrderById"
+      parameters:
+        - name: "orderId"
+          in: "path"
+          description: "ID of order to return"
+          required: true
+          type: "string"
+          format: "ksuid"
+          x-exportParamName: "OrderId"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Order"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Order not found"
+    put:
+      tags:
+        - "order"
+      summary: "Updates an order with form data"
+      operationId: "updateOrderWithForm"
+      parameters:
+        - name: "orderId"
+          in: "path"
+          description: "ID of order that needs to be updated"
+          required: true
+          type: "string"
+          format: "ksuid"
+          x-exportParamName: "OrderId"
+        - in: "body"
+          name: "order"
+          required: false
+          schema:
+            $ref: "#/definitions/Order"
+          x-exportParamName: "Order"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/Order"
+        405:
+          description: "Invalid input"
+    delete:
+      tags:
+        - "order"
+      summary: "Deletes an order"
+      operationId: "deleteOrder"
+      parameters:
+        - name: "orderId"
+          in: "path"
+          description: "Order id to delete"
+          required: true
+          type: "string"
+          format: "ksuid"
+          x-exportParamName: "OrderId"
+      responses:
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Order not found"
+  /session:
+    get:
+      tags:
+        - "session"
+      summary: "Returns all sessions"
+      description: "Returns all sessions"
+      operationId: "getSessions"
+      parameters: []
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Session"
+    post:
+      tags:
+        - "session"
+      summary: "Create a new session"
+      operationId: "createSession"
+      parameters: []
+      responses:
+        200:
+          description: "Successful Operation"
+          schema:
+            $ref: "#/definitions/Session"
+  /session/{sessionId}:
+    get:
+      tags:
+        - "session"
+      summary: "Get a single order"
+      description: "Multiple sessions values can be provided with comma separated\
+        \ strings"
+      operationId: "getOrder"
+      parameters:
+        - name: "sessionId"
+          in: "path"
+          description: "Session IDs that need to be considered for filter"
+          required: true
+          type: "string"
+          format: "ksuid"
+          x-exportParamName: "SessionId"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Session"
+    put:
+      tags:
+        - "session"
+      summary: "Update an order"
+      operationId: "putOrder"
+      parameters:
+        - name: "sessionId"
+          in: "path"
+          required: true
+          type: "string"
+          format: "ksuid"
+          x-exportParamName: "SessionId"
+        - in: "body"
+          name: "session"
+          required: false
+          schema:
+            $ref: "#/definitions/Session"
+          x-exportParamName: "Session"
+      responses:
+        200:
+          description: "Success"
+  /session/{sessionId}/orders:
+    get:
+      tags:
+        - "session"
+      summary: "Finds Orders by session"
+      description: "Multiple sessions values can be provided with comma separated\
+        \ strings"
+      operationId: "findOrdersBySession"
+      parameters:
+        - name: "sessionId"
+          in: "path"
+          description: "Session IDs that need to be considered for filter"
+          required: true
+          type: "array"
+          items:
+            type: "string"
+            format: "ksuid"
+          collectionFormat: "csv"
+          x-exportParamName: "SessionId"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Order"
+definitions:
+  Order:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        format: "ksuid"
+      from:
+        type: "string"
+        format: "email"
+      items:
+        type: "array"
+        items:
+          $ref: "#/definitions/Order_items"
+      status:
+        type: "string"
+        description: "Order Status"
+        enum:
+          - "pending"
+          - "rejected"
+          - "canceled"
+          - "accepted"
+          - "complete"
+    example:
+      from: "from"
+      id: "id"
+      items:
+        - item: "item"
+          quantity: 0.80082819046101150206595775671303272247314453125
+          cost: 6.02745618307040320615897144307382404804229736328125
+        - item: "item"
+          quantity: 0.80082819046101150206595775671303272247314453125
+          cost: 6.02745618307040320615897144307382404804229736328125
+      status: "pending"
+  Session:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        format: "ksuid"
+      organiser:
+        type: "string"
+        format: "email"
+      from:
+        type: "string"
+      cutoff:
+        type: "string"
+      payment:
+        type: "string"
+      notes:
+        type: "string"
+      state:
+        type: "string"
+        enum:
+          - "waiting"
+          - "canceled"
+          - "closed"
+          - "complete"
+    example:
+      organiser: "organiser"
+      notes: "notes"
+      from: "from"
+      payment: "payment"
+      id: "id"
+      cutoff: "cutoff"
+      state: "waiting"
+  Order_items:
+    properties:
+      item:
+        type: "string"
+      quantity:
+        type: "number"
+      cost:
+        type: "number"
+    example:
+      item: "item"
+      quantity: 0.80082819046101150206595775671303272247314453125
+      cost: 6.02745618307040320615897144307382404804229736328125
