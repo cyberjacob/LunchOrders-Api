@@ -12,7 +12,7 @@ package order
 import (
 	"fmt"
 	"github.com/cuvva/ksuid"
-	"github.com/cyberjacob/LunchOrders-Api/models"
+	"github.com/cyberjacob/LunchOrders-Api/models/order"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
