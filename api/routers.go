@@ -10,10 +10,10 @@
 package api
 
 import (
-	"github.com/gin-contrib/cors"
-	"github.com/gin-gonic/gin"
 	"github.com/cyberjacob/LunchOrders-Api/api/v1/order"
 	"github.com/cyberjacob/LunchOrders-Api/api/v1/session"
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
@@ -30,7 +30,7 @@ func NewRouter() *gin.Engine {
 	router := gin.Default()
 
 	corsConfig := cors.DefaultConfig()
-	corsConfig.AllowOrigins = []string{"http://localhost:8123","http://localhost"}
+	corsConfig.AllowOrigins = []string{"http://localhost:8456", "http://localhost"}
 
 	router.Use(cors.New(corsConfig))
 

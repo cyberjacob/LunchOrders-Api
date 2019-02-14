@@ -2,11 +2,11 @@ package main
 
 import (
 	"github.com/cuvva/ksuid"
+	"github.com/cyberjacob/LunchOrders-Api/api"
+	"github.com/cyberjacob/LunchOrders-Api/models"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"log"
-	"github.com/cyberjacob/LunchOrders-Api/api"
-	"github.com/cyberjacob/LunchOrders-Api/models"
 )
 
 var Db *gorm.DB
@@ -30,5 +30,5 @@ func main() {
 
 	router := api.NewRouter()
 
-	router.Run(":8123")
+	router.Run(":8456")
 }

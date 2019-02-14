@@ -14,11 +14,11 @@ import (
 )
 
 type OrderItems struct {
-	Id ksuid.ID `json:"id,omitempty" gorm:"type:blob"`
-	Item string `json:"item,omitempty"`
-	Quantity float32 `json:"quantity,omitempty"`
-	Cost float32 `json:"cost,omitempty"`
+	Id       ksuid.ID `json:"id,omitempty" gorm:"type:blob"`
+	Item     string   `json:"item,omitempty"`
+	Quantity float32  `json:"quantity,omitempty"`
+	Cost     float32  `json:"cost,omitempty"`
 
-	Order      Order `gorm:"foreignkey:SessionRefer"` // use UserRefer as foreign key
+	Order      Order    `gorm:"foreignkey:SessionRefer"` // use UserRefer as foreign key
 	OrderRefer ksuid.ID `gorm:"type:blob"`
 }

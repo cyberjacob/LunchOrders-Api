@@ -14,11 +14,11 @@ import (
 )
 
 type Session struct {
-	Id ksuid.ID `json:"id,omitempty" gorm:"type:blob"`
-	Organiser string `json:"organiser,omitempty"`
-	From string `json:"from,omitempty"`
-	Cutoff string `json:"cutoff,omitempty"`
-	Payment string `json:"payment,omitempty"`
-	Notes string `json:"notes,omitempty"`
-	State string `json:"state,omitempty"`
+	Id        ksuid.ID `json:"id,omitempty" gorm:"type:blob"`
+	Organiser string   `json:"organiser,omitempty"`
+	From      string   `json:"from,omitempty"`
+	Cutoff    string   `json:"cutoff,omitempty"`
+	Payment   string   `json:"payment,omitempty"`
+	Notes     string   `json:"notes,omitempty"`
+	State     string   `json:"state,omitempty"`
 }

@@ -19,17 +19,17 @@ var Db *gorm.DB
 type OrderStatus int
 
 type Order struct {
-	Id ksuid.ID `json:"id,omitempty" gorm:"type:blob"`
-	From string `json:"from,omitempty"`
-	Items []OrderItems `json:"items,omitempty"`
-	Status OrderStatus `json:"status,omitempty"`
+	Id     ksuid.ID     `json:"id,omitempty" gorm:"type:blob"`
+	From   string       `json:"from,omitempty"`
+	Items  []OrderItems `json:"items,omitempty"`
+	Status OrderStatus  `json:"status,omitempty"`
 
-	Session      Session `gorm:"foreignkey:SessionRefer"` // use UserRefer as foreign key
+	Session      Session  `gorm:"foreignkey:SessionRefer"` // use UserRefer as foreign key
 	SessionRefer ksuid.ID `gorm:"type:blob"`
 }
 
 const (
-	Pending  OrderStatus = iota + 1
+	Pending OrderStatus = iota + 1
 	Rejected
 	Canceled
 	Accepted

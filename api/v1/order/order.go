@@ -12,8 +12,8 @@ package order
 import (
 	"fmt"
 	"github.com/cuvva/ksuid"
-	"github.com/gin-gonic/gin"
 	"github.com/cyberjacob/LunchOrders-Api/models"
+	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
@@ -40,7 +40,7 @@ func AddOrder(c *gin.Context) {
 	order.Status = models.Pending
 	order.From = "Unknown User"
 
-	models.Db.Save(&order);
+	models.Db.Save(&order)
 	c.JSON(http.StatusCreated, order)
 }
 
@@ -53,13 +53,13 @@ func DeleteOrder(c *gin.Context) {
 		return
 	}
 
-	models.Db.Delete(models.Order{Id:id})
+	models.Db.Delete(models.Order{Id: id})
 
 	c.Status(http.StatusOK)
 }
 
 func GetOrderById(c *gin.Context) {
-	rawId:=c.Param("id")
+	rawId := c.Param("id")
 	id := ksuid.MustParse(rawId)
 
 	if id.Resource != OrderTypeKey {
@@ -68,7 +68,7 @@ func GetOrderById(c *gin.Context) {
 	}
 
 	var order models.Order
-	models.Db.Find(&order, models.Order{Id:id})
+	models.Db.Find(&order, models.Order{Id: id})
 }
 
 func GetOrders(c *gin.Context) {
