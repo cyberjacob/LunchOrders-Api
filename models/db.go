@@ -1,7 +1,7 @@
 package models
 
 import (
-"github.com/jinzhu/gorm"
+	"github.com/jinzhu/gorm"
 )
 
 var pool *gorm.DB
@@ -9,7 +9,7 @@ var pool *gorm.DB
 func GetDB() *gorm.DB {
 	if pool == nil {
 		db := MakeDB()
-		pool=db
+		pool = db
 	}
 
 	return pool

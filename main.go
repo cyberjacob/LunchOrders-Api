@@ -4,8 +4,8 @@ import (
 	"github.com/cuvva/ksuid"
 	"github.com/cyberjacob/LunchOrders-Api/api"
 	"github.com/cyberjacob/LunchOrders-Api/models"
-	"log"
 	"github.com/jinzhu/gorm"
+	"log"
 )
 
 var Db *gorm.DB
