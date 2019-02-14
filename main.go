@@ -3,8 +3,9 @@ package main
 import (
 	"github.com/cuvva/ksuid"
 	"github.com/cyberjacob/LunchOrders-Api/api"
-	"github.com/cyberjacob/LunchOrders-Api/models/db"
+	"github.com/cyberjacob/LunchOrders-Api/models"
 	"log"
+	"github.com/jinzhu/gorm"
 )
 
 var Db *gorm.DB
@@ -14,10 +15,7 @@ func main() {
 	log.Printf("Server started")
 	ksuid.SetEnvironment("dev")
 
-	db, err := db.MakeDB()
-	if err != nil {
-		panic("failed to connect database")
-	}
+	db := models.MakeDB()
 
 	db.AutoMigrate(&models.Order{})
 	db.AutoMigrate(&models.OrderItems{})
